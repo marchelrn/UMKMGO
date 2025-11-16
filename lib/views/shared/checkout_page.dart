@@ -20,11 +20,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
     'Jl. Kenangan No. 12, Jakarta Selatan, 12780',
     'Kantor Sembilan, Sudirman, Jakarta Pusat, 10220',
   ];
-
-  // Only allow COD as a selectable payment method.
   final List<String> paymentMethods = ['Bayar di Tempat (COD)'];
 
-  // Other payment methods kept for display purposes (show these as "Coming Soon").
   final List<String> comingSoonPaymentMethods = [
     'Bank Transfer BNI',
     'Kartu Kredit/Debit',
@@ -308,7 +305,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             label,
             style: TextStyle(
               fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-              fontSize: 14, // <<< FIXED: Was 4, now 14
+              fontSize: 14,
               color: isTotal
                   ? Theme.of(context).colorScheme.onSurface
                   : Colors.grey.shade700,
@@ -442,8 +439,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 orderModel.addOrder(newOrder);
                 cart.clearCart();
 
-                Navigator.of(dialogContext).pop(); // Close dialog
-                Navigator.of(context).pop(); // Close checkout page
+                Navigator.of(dialogContext).pop();
+                Navigator.of(context).pop();
               },
             ),
           ],

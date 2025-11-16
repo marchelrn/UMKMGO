@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-// --- CORRECTED IMPORTS ---
 import 'package:umkmgo/providers/theme_provider.dart';
 import 'package:umkmgo/providers/order_provider.dart';
-// import 'package:umkmgo/models/order.dart'; // <<< REMOVED UNUSED IMPORT
 import 'package:umkmgo/providers/auth_provider.dart';
-
-// Import Seller Pages
 import 'package:umkmgo/views/seller/seller_dashboard.dart';
 import 'package:umkmgo/views/seller/manage_products_page.dart';
 import 'package:umkmgo/views/seller/view_orders_page.dart';
-// -------------------------
-
-// --- BUYER PAGES (Functional Implementations) ---
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -23,9 +15,15 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
-  final TextEditingController _nameController = TextEditingController(text: 'Siti Aminah');
-  final TextEditingController _emailController = TextEditingController(text: 'siti.aminah@email.com');
-  final TextEditingController _phoneController = TextEditingController(text: '0812-3456-7890');
+  final TextEditingController _nameController = TextEditingController(
+    text: 'Siti Aminah',
+  );
+  final TextEditingController _emailController = TextEditingController(
+    text: 'siti.aminah@email.com',
+  );
+  final TextEditingController _phoneController = TextEditingController(
+    text: '0812-3456-7890',
+  );
   final _formKey = GlobalKey<FormState>();
 
   void _saveProfile() {
@@ -40,10 +38,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit Profile'),
-        elevation: 0.5,
-      ),
+      appBar: AppBar(title: const Text('Edit Profile'), elevation: 0.5),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -59,8 +54,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               const SizedBox(height: 30),
               _buildTextField('Nama Lengkap', _nameController, Icons.person),
-              _buildTextField('Email', _emailController, Icons.email, readOnly: true),
-              _buildTextField('Nomor Telepon', _phoneController, Icons.phone, keyboardType: TextInputType.phone),
+              _buildTextField(
+                'Email',
+                _emailController,
+                Icons.email,
+                readOnly: true,
+              ),
+              _buildTextField(
+                'Nomor Telepon',
+                _phoneController,
+                Icons.phone,
+                keyboardType: TextInputType.phone,
+              ),
               const SizedBox(height: 40),
               SizedBox(
                 width: double.infinity,
@@ -70,7 +75,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                   child: const Text('Simpan Perubahan'),
                 ),
@@ -83,12 +90,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Widget _buildTextField(
-      String label,
-      TextEditingController controller,
-      IconData icon, {
-        bool readOnly = false,
-        TextInputType keyboardType = TextInputType.text,
-      }) {
+    String label,
+    TextEditingController controller,
+    IconData icon, {
+    bool readOnly = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: TextFormField(
@@ -98,9 +105,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         decoration: InputDecoration(
           labelText: label,
           prefixIcon: Icon(icon),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           filled: readOnly,
           fillColor: readOnly ? Theme.of(context).cardColor : null,
         ),
@@ -119,8 +124,7 @@ class PurchaseHistoryPage extends StatelessWidget {
   const PurchaseHistoryPage({super.key});
 
   String _formatRupiah(double amount) {
-    return 'Rp ${amount.toStringAsFixed(0).replaceAllMapped(
-        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')}';
+    return 'Rp ${amount.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')}';
   }
 
   String _formatDate(DateTime date) {
@@ -136,63 +140,80 @@ class PurchaseHistoryPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Purchase History')),
       body: orders.isEmpty
           ? Center(
-        child: Text(
-          'Anda belum memiliki riwayat pesanan.',
-          style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
-        ),
-      )
-          : ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: orders.length,
-        itemBuilder: (context, index) {
-          final order = orders[index];
-          return Card(
-            margin: const EdgeInsets.only(bottom: 15),
-            elevation: 2,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        order.orderId,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.green.shade100,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Text(
-                          order.status,
-                          style: TextStyle(color: Colors.green.shade700, fontSize: 12),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Divider(),
-                  Text('Tanggal: ${_formatDate(order.date)}', style: TextStyle(color: Colors.grey.shade600)),
-                  const SizedBox(height: 5),
-                  Text(
-                    'Total: ${_formatRupiah(order.totalAmount)}',
-                    style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${order.items.length} jenis barang dari ${order.items.map((e) => e.shopName).toSet().length} toko',
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                ],
+              child: Text(
+                'Anda belum memiliki riwayat pesanan.',
+                style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
               ),
+            )
+          : ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: orders.length,
+              itemBuilder: (context, index) {
+                final order = orders[index];
+                return Card(
+                  margin: const EdgeInsets.only(bottom: 15),
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              order.orderId,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.green.shade100,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Text(
+                                order.status,
+                                style: TextStyle(
+                                  color: Colors.green.shade700,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Divider(),
+                        Text(
+                          'Tanggal: ${_formatDate(order.date)}',
+                          style: TextStyle(color: Colors.grey.shade600),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          'Total: ${_formatRupiah(order.totalAmount)}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          '${order.items.length} jenis barang dari ${order.items.map((e) => e.shopName).toSet().length} toko',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
@@ -203,7 +224,9 @@ class PaymentMethodsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Payment Methods')),
-      body: const Center(child: Text('List of saved cards/accounts goes here.')),
+      body: const Center(
+        child: Text('List of saved cards/accounts goes here.'),
+      ),
     );
   }
 }
@@ -214,7 +237,9 @@ class NotificationSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Notification Settings')),
-      body: const Center(child: Text('Toggles for various notification types.')),
+      body: const Center(
+        child: Text('Toggles for various notification types.'),
+      ),
     );
   }
 }
@@ -231,7 +256,6 @@ class LanguageSettingsPage extends StatelessWidget {
 }
 // ----------------------------------------------------
 
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -240,7 +264,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
@@ -249,8 +272,6 @@ class _ProfilePageState extends State<ProfilePage> {
     final userRole = authProvider.userRole;
 
     List<Widget> profileSections = [];
-
-    // === ROLE-BASED SECTION BUILDER ===
     if (userRole == UserRole.seller) {
       profileSections.addAll(_buildShopManagementSection(context));
     }
@@ -258,14 +279,13 @@ class _ProfilePageState extends State<ProfilePage> {
     if (userRole == UserRole.buyer || userRole == UserRole.seller) {
       profileSections.addAll(_buildAccountSection(context));
     }
-    // ===================================
 
-    profileSections.addAll(_buildSettingsSection(context, primaryColor, themeModel));
+    profileSections.addAll(
+      _buildSettingsSection(context, primaryColor, themeModel),
+    );
     profileSections.addAll(_buildSupportSection(context));
 
-
     return Scaffold(
-      // AppBar is provided by ProductCatalogPage
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
         child: Column(
@@ -292,8 +312,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red.shade700,
                     foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   child: const Text('Log Out'),
                 ),
@@ -306,11 +331,17 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildProfileHeader(BuildContext context, Color primaryColor, AuthProvider authProvider) {
+  Widget _buildProfileHeader(
+    BuildContext context,
+    Color primaryColor,
+    AuthProvider authProvider,
+  ) {
     final userRole = authProvider.userRole;
     final userEmail = authProvider.currentUser?.email ?? 'No Email';
 
-    final String userName = (userRole == UserRole.seller) ? 'Seller Account' : 'Buyer Account';
+    final String userName = (userRole == UserRole.seller)
+        ? 'Seller Account'
+        : 'Buyer Account';
 
     return Column(
       children: [
@@ -322,9 +353,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 radius: 40,
                 backgroundColor: Theme.of(context).cardColor,
                 child: Icon(
-                    (userRole == UserRole.seller) ? Icons.storefront : Icons.person,
-                    size: 50,
-                    color: Theme.of(context).colorScheme.onSurface
+                  (userRole == UserRole.seller)
+                      ? Icons.storefront
+                      : Icons.person,
+                  size: 50,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),
               const SizedBox(width: 16),
@@ -333,11 +366,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Text(
                     userName,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                   Text(
                     userEmail,
-                    style: const TextStyle(fontSize: 14, color: Colors.deepOrange),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.deepOrange,
+                    ),
                   ),
                 ],
               ),
@@ -352,12 +392,19 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 45,
             child: OutlinedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProfilePage()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const EditProfilePage(),
+                  ),
+                );
               },
               style: OutlinedButton.styleFrom(
                 foregroundColor: primaryColor,
                 side: BorderSide(color: primaryColor, width: 2),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 textStyle: const TextStyle(fontWeight: FontWeight.bold),
               ),
               child: const Text('View/Edit Profile'),
@@ -368,7 +415,10 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildBecomeSellerButton(BuildContext context, AuthProvider authProvider) {
+  Widget _buildBecomeSellerButton(
+    BuildContext context,
+    AuthProvider authProvider,
+  ) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
       child: SizedBox(
@@ -382,7 +432,9 @@ class _ProfilePageState extends State<ProfilePage> {
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.primary,
             foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
           child: const Text('Become a Seller'),
         ),
@@ -397,19 +449,28 @@ class _ProfilePageState extends State<ProfilePage> {
         context,
         Icons.storefront,
         'My Shop / Dashboard',
-            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SellerDashboardPage())),
+        () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SellerDashboardPage()),
+        ),
       ),
       _buildListItem(
         context,
         Icons.inventory_2_outlined,
         'Manage Products',
-            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ManageProductsPage())),
+        () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ManageProductsPage()),
+        ),
       ),
       _buildListItem(
         context,
         Icons.receipt_long,
         'View Orders',
-            () => Navigator.push(context, MaterialPageRoute(builder: (context) => ViewOrdersPage())),
+        () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ViewOrdersPage()),
+        ),
       ),
     ];
   }
@@ -421,33 +482,54 @@ class _ProfilePageState extends State<ProfilePage> {
         context,
         Icons.history,
         'Purchase History',
-            () => Navigator.push(context, MaterialPageRoute(builder: (context) => const PurchaseHistoryPage())),
+        () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const PurchaseHistoryPage()),
+        ),
       ),
       _buildListItem(context, Icons.credit_card, 'Payment Methods', () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentMethodsPage()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const PaymentMethodsPage()),
+        );
       }),
     ];
   }
 
-  List<Widget> _buildSettingsSection(BuildContext context, Color primaryColor, ThemeProvider themeModel) {
+  List<Widget> _buildSettingsSection(
+    BuildContext context,
+    Color primaryColor,
+    ThemeProvider themeModel,
+  ) {
     return [
       _buildSectionHeader(context, 'SETTINGS'),
       _buildToggleItem(
-          context,
-          Icons.dark_mode_outlined,
-          'Dark Mode',
-          themeModel.isDarkMode,
-          primaryColor,
-              (newValue) {
-            themeModel.setDarkMode(newValue);
-            _showSnackbar(context, 'Dark Mode: ${newValue ? 'Enabled' : 'Disabled'}');
-          }
+        context,
+        Icons.dark_mode_outlined,
+        'Dark Mode',
+        themeModel.isDarkMode,
+        primaryColor,
+        (newValue) {
+          themeModel.setDarkMode(newValue);
+          _showSnackbar(
+            context,
+            'Dark Mode: ${newValue ? 'Enabled' : 'Disabled'}',
+          );
+        },
       ),
       _buildListItem(context, Icons.notifications_none, 'Notifications', () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationSettingsPage()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const NotificationSettingsPage(),
+          ),
+        );
       }),
       _buildListItem(context, Icons.language, 'Language', () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => const LanguageSettingsPage()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LanguageSettingsPage()),
+        );
       }),
     ];
   }
@@ -470,17 +552,25 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Text(
         title,
         style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).textTheme.labelMedium?.color, // <<< FIX: Theme-aware color
-            fontSize: 13
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).textTheme.labelMedium?.color,
+          fontSize: 13,
         ),
       ),
     );
   }
 
-  Widget _buildListItem(BuildContext context, IconData icon, String title, VoidCallback onTap) {
+  Widget _buildListItem(
+    BuildContext context,
+    IconData icon,
+    String title,
+    VoidCallback onTap,
+  ) {
     return ListTile(
-      leading: Icon(icon, color: Theme.of(context).colorScheme.onSurfaceVariant),
+      leading: Icon(
+        icon,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      ),
       title: Text(title),
       trailing: const Icon(Icons.chevron_right, color: Colors.grey),
       onTap: onTap,
@@ -488,15 +578,18 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildToggleItem(
-      BuildContext context,
-      IconData icon,
-      String title,
-      bool value,
-      Color activeColor,
-      ValueChanged<bool> onChanged,
-      ) {
+    BuildContext context,
+    IconData icon,
+    String title,
+    bool value,
+    Color activeColor,
+    ValueChanged<bool> onChanged,
+  ) {
     return ListTile(
-      leading: Icon(icon, color: Theme.of(context).colorScheme.onSurfaceVariant),
+      leading: Icon(
+        icon,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      ),
       title: Text(title),
       trailing: Switch(
         value: value,
@@ -510,8 +603,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 }

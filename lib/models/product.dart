@@ -1,4 +1,3 @@
-// Data Model for a single product entry
 class Product {
   final String name;
   final String description;
@@ -18,5 +17,3 @@ class Product {
     required this.stock,
   });
 }
-
-// <<< The 'dummyProducts' list has been REMOVED from this file >>>

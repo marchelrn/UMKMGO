@@ -1,6 +1,5 @@
 import 'cart_item.dart';
 
-// Model for a single item within a completed order
 class OrderProductItem {
   final String name;
   final String imageUrl;
@@ -18,7 +17,6 @@ class OrderProductItem {
     required this.shopName,
   });
 
-  // Constructor to convert CartItem to OrderProductItem
   factory OrderProductItem.fromCartItem(CartItem item) {
     final unit = item.product.category.toLowerCase() == 'food' ? 'kg' : 'pcs';
     return OrderProductItem(
@@ -32,7 +30,6 @@ class OrderProductItem {
   }
 }
 
-// Model for the completed Order transaction
 class Order {
   final String orderId;
   final DateTime date;
@@ -40,7 +37,7 @@ class Order {
   final List<OrderProductItem> items;
   final String address;
   final String paymentMethod;
-  String status; // <<< REMOVED 'final' to allow updates
+  String status;
 
   Order({
     required this.orderId,

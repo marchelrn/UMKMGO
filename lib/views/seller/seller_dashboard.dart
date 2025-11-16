@@ -6,9 +6,7 @@ class SellerDashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Seller Dashboard'),
-      ),
+      appBar: AppBar(title: const Text('Seller Dashboard')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -16,31 +14,30 @@ class SellerDashboardPage extends StatelessWidget {
           children: [
             Text(
               'Your Shop Statistics',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
 
-            // --- FIX 1 ---
             _buildStatCard(
-              context: context, // <<< Added 'context:'
+              context: context,
               title: 'Total Sales',
               value: 'Rp 1.500.000',
               icon: Icons.attach_money,
               color: Colors.green,
             ),
 
-            // --- FIX 2 ---
             _buildStatCard(
-              context: context, // <<< Added 'context:'
+              context: context,
               title: 'Total Orders',
               value: '12',
               icon: Icons.receipt_long,
               color: Colors.blue,
             ),
 
-            // --- FIX 3 ---
             _buildStatCard(
-              context: context, // <<< Added 'context:'
+              context: context,
               title: 'Product Views',
               value: '1,204',
               icon: Icons.visibility,
@@ -73,11 +70,15 @@ class SellerDashboardPage extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleMedium?.copyWith(color: Colors.grey[600]),
                 ),
                 Text(
                   value,
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),

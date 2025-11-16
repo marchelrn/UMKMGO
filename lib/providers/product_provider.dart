@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class ProductProvider extends ChangeNotifier {
-  // The dummyProducts list is now internal state, managed by the provider.
   final List<Product> _items = [
     Product(
       name: 'Handmade Woven Bag',
@@ -15,7 +14,8 @@ class ProductProvider extends ChangeNotifier {
     ),
     Product(
       name: 'Spicy Chili Sambal',
-      description: 'Extra spicy homemade sambal, essential for Indonesian cuisine.',
+      description:
+          'Extra spicy homemade sambal, essential for Indonesian cuisine.',
       imageUrl: 'https://placehold.co/600x400/8B0000/FFFFFF?text=Chili+Sambal',
       price: 25000,
       category: 'Food',
@@ -60,7 +60,8 @@ class ProductProvider extends ChangeNotifier {
     ),
     Product(
       name: 'Rendang Daging Sapi',
-      description: 'Masakan daging kaya rempah khas Minangkabau, dimasak dalam santan hingga kering dan empuk.',
+      description:
+          'Masakan daging kaya rempah khas Minangkabau, dimasak dalam santan hingga kering dan empuk.',
       imageUrl: 'https://placehold.co/600x400/B22222/FFFFFF?text=Rendang',
       price: 85000,
       category: 'Food',
@@ -69,7 +70,8 @@ class ProductProvider extends ChangeNotifier {
     ),
     Product(
       name: 'Topeng Kayu Ukir Bali',
-      description: 'Topeng tradisional Bali yang diukir dengan tangan, menampilkan detail seni budaya yang halus.',
+      description:
+          'Topeng tradisional Bali yang diukir dengan tangan, menampilkan detail seni budaya yang halus.',
       imageUrl: 'https://placehold.co/600x400/5D4037/FFFFFF?text=Topeng+Bali',
       price: 350000,
       category: 'Crafts',
@@ -78,12 +80,8 @@ class ProductProvider extends ChangeNotifier {
     ),
   ];
 
-  // Public getter for the product list
   List<Product> get items => _items;
 
-  // --- Seller CRUD Functions [cite: 90] ---
-
-  // (This is a simplified example; a real app would filter by seller ID)
   List<Product> getProductsByShop(String shopName) {
     return _items.where((product) => product.shopName == shopName).toList();
   }

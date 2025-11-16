@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-// --- CORRECTED IMPORTS (assuming project name is 'umkmgo') ---
 import 'package:umkmgo/models/product.dart';
 import 'package:umkmgo/providers/cart_provider.dart';
 import 'package:umkmgo/providers/product_provider.dart';
@@ -9,9 +7,7 @@ import 'package:umkmgo/views/shared/cart_page.dart';
 import 'package:umkmgo/views/shared/profile_page.dart';
 import 'package:umkmgo/views/shared/product_detail.dart';
 import 'package:umkmgo/views/shared/wishlist_page.dart';
-// -----------------------------------------------------------
 
-/// This is now the main navigation shell for the app.
 class ProductCatalogPage extends StatefulWidget {
   const ProductCatalogPage({super.key});
 
@@ -20,14 +16,12 @@ class ProductCatalogPage extends StatefulWidget {
 }
 
 class _ProductCatalogPageState extends State<ProductCatalogPage> {
-  int _selectedIndex = 0; // Current page index
-
-  // List of the main pages
+  int _selectedIndex = 0;
   static const List<Widget> _pages = <Widget>[
-    ProductCatalogHome(), // Index 0: Home
-    WishlistPage(),       // Index 1: Wishlist
-    CartPage(),           // Index 2: Cart
-    ProfilePage(),        // Index 3: Profile
+    ProductCatalogHome(),
+    WishlistPage(),
+    CartPage(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -44,12 +38,15 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
       'Discover Local Products',
       'My Wishlist',
       'Keranjang Saya',
-      'My Profile'
+      'My Profile',
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_pageTitles[_selectedIndex], style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          _pageTitles[_selectedIndex],
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         automaticallyImplyLeading: false,
         actions: [
           if (_selectedIndex == 2)
@@ -60,7 +57,10 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
                   const SnackBar(content: Text('Keranjang dikosongkan.')),
                 );
               },
-              child: const Text('Hapus Semua', style: TextStyle(color: Colors.red)),
+              child: const Text(
+                'Hapus Semua',
+                style: TextStyle(color: Colors.red),
+              ),
             ),
           if (_selectedIndex != 2)
             Badge(
@@ -78,10 +78,7 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
             ),
         ],
       ),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _selectedIndex, children: _pages),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -122,8 +119,6 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
     );
   }
 }
-
-// --- WIDGETS FOR THE HOME PAGE ---
 
 class ProductCatalogHome extends StatefulWidget {
   const ProductCatalogHome({super.key});
@@ -202,10 +197,12 @@ class _ProductCatalogHomeState extends State<ProductCatalogHome> {
                   ),
                   backgroundColor: chipColor,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      side: BorderSide(
-                        color: isSelected ? Theme.of(context).colorScheme.primary : chipBorderColor,
-                      )
+                    borderRadius: BorderRadius.circular(20.0),
+                    side: BorderSide(
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.primary
+                          : chipBorderColor,
+                    ),
                   ),
                 ),
               );
@@ -233,14 +230,12 @@ class _ProductCatalogHomeState extends State<ProductCatalogHome> {
   }
 }
 
-/// Reusable Product Card Widget
 class ProductCard extends StatelessWidget {
   final Product product;
   const ProductCard({super.key, required this.product});
 
   String _formatRupiah(double amount) {
-    return 'Rp ${amount.toStringAsFixed(0).replaceAllMapped(
-        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')}';
+    return 'Rp ${amount.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')}';
   }
 
   @override
@@ -253,7 +248,12 @@ class ProductCard extends StatelessWidget {
       elevation: 2,
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailPage(product: product)));
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailPage(product: product),
+            ),
+          );
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -262,7 +262,8 @@ class ProductCard extends StatelessWidget {
               child: Image.network(
                 product.imageUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => const Icon(Icons.image_not_supported),
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.image_not_supported),
               ),
             ),
             Padding(
@@ -286,7 +287,10 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Text(
                         _formatRupiah(product.price),
-                        style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       InkWell(
                         onTap: () {
@@ -304,7 +308,11 @@ class ProductCard extends StatelessWidget {
                             color: Theme.of(context).colorScheme.primary,
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.add, color: Colors.white, size: 18),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 18,
+                          ),
                         ),
                       ),
                     ],

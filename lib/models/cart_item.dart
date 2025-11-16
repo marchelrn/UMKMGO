@@ -1,6 +1,5 @@
 import 'product.dart';
 
-// Model for an item inside the cart
 class CartItem {
   final Product product;
   int quantity;

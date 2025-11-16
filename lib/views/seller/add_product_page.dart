@@ -13,13 +13,10 @@ class AddProductPage extends StatefulWidget {
 
 class _AddProductPageState extends State<AddProductPage> {
   final _formKey = GlobalKey<FormState>();
-
-  // Controllers for form fields
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _priceController = TextEditingController();
   final _stockController = TextEditingController();
-  // We use a placeholder URL since image upload is not implemented
   final _imageUrlController = TextEditingController(
     text: 'https://placehold.co/600x400/00D100/FFFFFF?text=New+Product',
   );
@@ -29,7 +26,6 @@ class _AddProductPageState extends State<AddProductPage> {
 
   @override
   void dispose() {
-    // Clean up controllers
     _nameController.dispose();
     _descriptionController.dispose();
     _priceController.dispose();
@@ -39,25 +35,20 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   void _saveForm() {
-    // Validate the form
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      // Get providers (listen: false because we are in a method)
       final productProvider = Provider.of<ProductProvider>(
         context,
         listen: false,
       );
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-      // Get the shop name from the logged-in seller
-      // (This mock logic will be replaced by real auth data)
       final String sellerShopName =
           authProvider.currentUser?.email == 'seller@test.com'
           ? 'Java Crafts'
           : 'My New Shop';
 
-      // Create the new Product object
       final newProduct = Product(
         name: _nameController.text,
         description: _descriptionController.text,
@@ -68,10 +59,8 @@ class _AddProductPageState extends State<AddProductPage> {
         stock: int.tryParse(_stockController.text) ?? 0,
       );
 
-      // Add product to the provider
       productProvider.addProduct(newProduct);
 
-      // Show success message and go back
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('${newProduct.name} has been added.')),
       );
@@ -175,7 +164,6 @@ class _AddProductPageState extends State<AddProductPage> {
                 },
               ),
               const SizedBox(height: 20),
-              // TODO: Replace this with an image picker (Firebase Storage)
               _buildTextFormField(
                 controller: _imageUrlController,
                 label: 'Image URL',

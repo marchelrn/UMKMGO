@@ -16,16 +16,13 @@ class _LoginPageState extends State<LoginPage> {
 
   void _handleLogin() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    // This will trigger the listener in main.dart and navigate to the home page
     authProvider.login(_emailController.text, _passwordController.text);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
+      appBar: AppBar(title: const Text('Login')),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -36,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            // Mock instructions
             const Text(
               'Use (buyer@test.com) or (seller@test.com) to log in. Any password works.',
               textAlign: TextAlign.center,
@@ -73,7 +69,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
-            // --- ADDED SIGN UP BUTTON ---
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -83,14 +78,15 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const SignupPage()),
+                      MaterialPageRoute(
+                        builder: (context) => const SignupPage(),
+                      ),
                     );
                   },
                   child: const Text('Sign Up'),
                 ),
               ],
-            )
-            // -----------------------------
+            ),
           ],
         ),
       ),

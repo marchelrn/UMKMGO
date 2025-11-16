@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-// --- CORRECTED IMPORTS ---
 import 'package:umkmgo/models/product.dart';
 import 'package:umkmgo/providers/cart_provider.dart';
 import 'package:umkmgo/providers/wishlist_provider.dart';
-// -------------------------
 
 class ProductDetailPage extends StatelessWidget {
   final Product product;
   const ProductDetailPage({super.key, required this.product});
 
   String _formatRupiah(double amount) {
-    return 'Rp ${amount.toStringAsFixed(0).replaceAllMapped(
-        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')}';
+    return 'Rp ${amount.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]}.')}';
   }
 
   @override
@@ -67,7 +63,10 @@ class ProductDetailPage extends StatelessWidget {
                 children: [
                   Text(
                     product.name,
-                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
@@ -81,9 +80,21 @@ class ProductDetailPage extends StatelessWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      Text('By ${product.shopName}', style: TextStyle(fontSize: 16, color: Colors.grey.shade700)),
+                      Text(
+                        'By ${product.shopName}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
                       const Spacer(),
-                      Text('Stock: ${product.stock}', style: TextStyle(fontSize: 16, color: Colors.grey.shade700)),
+                      Text(
+                        'Stock: ${product.stock}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
                     ],
                   ),
                   const Divider(height: 32),
@@ -118,7 +129,10 @@ class ProductDetailPage extends StatelessWidget {
             backgroundColor: Theme.of(context).colorScheme.primary,
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 16),
-            textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            textStyle: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           child: const Text('Add to Cart'),
         ),

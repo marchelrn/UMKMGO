@@ -183,8 +183,8 @@
     }
   ],
   "generator": "pub",
-  "generatorVersion": "3.11.0-93.0.dev",
+  "generatorVersion": "3.10.0",
   "flutterRoot": "file:///C:/Prog%20Lang/flutter",
-  "flutterVersion": "3.38.0-1.0.pre-428",
+  "flutterVersion": "3.38.1",
   "pubCache": "file:///C:/Users/Marchel/AppData/Local/Pub/Cache"
 }

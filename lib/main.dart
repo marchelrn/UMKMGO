@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-// --- IMPORTS FOR DECOUPLED MODELS AND PROVIDERS ---
 import 'providers/cart_provider.dart';
 import 'providers/theme_provider.dart';
 import 'providers/order_provider.dart';
 import 'providers/product_provider.dart';
 import 'providers/wishlist_provider.dart';
-import 'providers/auth_provider.dart'; // <<< 1. NEW IMPORT
-
-// --- IMPORT SCREENS ---
+import 'providers/auth_provider.dart';
 import 'views/shared/product_catalog_page.dart';
-import 'views/shared/login_page.dart'; // <<< 2. NEW IMPORT
-
+import 'views/shared/login_page.dart';
+import 'views/admin/admin_dashboard.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        // Registering all state managers (ChangeNotifiers)
         ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => OrderProvider()),
         ChangeNotifierProvider(create: (context) => WishlistProvider()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
-        ChangeNotifierProvider(create: (context) => AuthProvider()), // <<< 3. ADD PROVIDER
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
       ],
       child: const MyApp(),
     ),
@@ -45,8 +40,7 @@ class MyApp extends StatelessWidget {
       title: 'Discover Local Products',
 
       themeMode: themeModel.themeMode,
-
-      // Define Light Theme (omitted for brevity)
+      // Define Light Theme
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
@@ -56,7 +50,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      // Define Dark Theme (omitted for brevity)
+      // Define Dark Theme
       darkTheme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
@@ -70,14 +64,17 @@ class MyApp extends StatelessWidget {
         cardColor: const Color(0xFF1E1E1E),
       ),
 
-      // --- 4. CREATE THE "AUTH GATE" ---
       home: Consumer<AuthProvider>(
         builder: (context, auth, child) {
-          if (auth.isLoggedIn) {
-            return const ProductCatalogPage();
-          } else {
+          if (!auth.isLoggedIn) {
             return const LoginPage();
           }
+
+          if (auth.userRole == UserRole.admin) {
+            return const AdminDashboard();
+          }
+
+          return const ProductCatalogPage();
         },
       ),
     );
