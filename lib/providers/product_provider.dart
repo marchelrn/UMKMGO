@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import '../models/product.dart';
 
 class ProductProvider extends ChangeNotifier {
+  // Daftar dummyProducts sekarang menjadi state internal, dikelola oleh provider.
   final List<Product> _items = [
     Product(
       name: 'Handmade Woven Bag',
-      description: 'Beautifully crafted woven bag, perfect for summer outings.',
+      description: 'Tas anyaman buatan tangan yang cantik, cocok untuk jalan-jalan.',
       imageUrl: 'https://placehold.co/600x400/D2B48C/FFFFFF?text=Woven+Bag',
       price: 150000,
       category: 'Crafts',
@@ -16,6 +17,7 @@ class ProductProvider extends ChangeNotifier {
       name: 'Spicy Chili Sambal',
       description:
           'Extra spicy homemade sambal, essential for Indonesian cuisine.',
+      description: 'Sambal buatan rumah ekstra pedas, penting untuk masakan Indonesia.',
       imageUrl: 'https://placehold.co/600x400/8B0000/FFFFFF?text=Chili+Sambal',
       price: 25000,
       category: 'Food',
@@ -24,7 +26,7 @@ class ProductProvider extends ChangeNotifier {
     ),
     Product(
       name: 'Batik Print Scarf',
-      description: 'Soft cotton scarf with traditional Batik patterns.',
+      description: 'Syal katun lembut dengan motif Batik tradisional.',
       imageUrl: 'https://placehold.co/600x400/004D40/FFFFFF?text=Batik+Scarf',
       price: 75000,
       category: 'Fashion',
@@ -33,7 +35,7 @@ class ProductProvider extends ChangeNotifier {
     ),
     Product(
       name: 'Wooden Kitchen Set',
-      description: 'Set of eco-friendly wooden spoons and spatulas.',
+      description: 'Satu set sendok dan spatula kayu ramah lingkungan.',
       imageUrl: 'https://placehold.co/600x400/FFA500/000000?text=Wood+Utensils',
       price: 50000,
       category: 'Crafts',
@@ -42,7 +44,7 @@ class ProductProvider extends ChangeNotifier {
     ),
     Product(
       name: 'Freshly Baked Cookies',
-      description: 'Chocolate chip cookies, baked fresh daily.',
+      description: 'Kue kering chocolate chip, dipanggang segar setiap hari.',
       imageUrl: 'https://placehold.co/600x400/795548/FFFFFF?text=Cookies',
       price: 30000,
       category: 'Food',
@@ -51,7 +53,7 @@ class ProductProvider extends ChangeNotifier {
     ),
     Product(
       name: 'Custom Graphic T-Shirt',
-      description: 'Premium cotton t-shirt with a unique custom print design.',
+      description: 'Kaos katun premium dengan desain sablon unik.',
       imageUrl: 'https://placehold.co/600x400/6A5ACD/FFFFFF?text=Graphic+Tee',
       price: 120000,
       category: 'Fashion',
@@ -80,8 +82,61 @@ class ProductProvider extends ChangeNotifier {
     ),
   ];
 
+
+    // --- 5 PRODUK BARU DITAMBAHKAN ---
+    Product(
+      name: 'Kopi Gayo Asli Aceh',
+      description: 'Biji kopi Arabika Gayo asli dari dataran tinggi Aceh, aroma kuat dan kaya rasa.',
+      imageUrl: 'https://placehold.co/600x400/6F4E37/FFFFFF?text=Kopi+Gayo',
+      price: 90000,
+      category: 'Food',
+      shopName: 'Kopi Bintang',
+      stock: 50,
+    ),
+    Product(
+      name: 'Wayang Golek Cepot',
+      description: 'Kerajinan tangan Wayang Golek khas Sunda, karakter Cepot. Cocok untuk pajangan.',
+      imageUrl: 'https://placehold.co/600x400/8B4513/FFFFFF?text=Wayang+Golek',
+      price: 120000,
+      category: 'Crafts',
+      shopName: 'Seni Sunda',
+      stock: 15,
+    ),
+    Product(
+      name: 'Kain Tenun Sumba',
+      description: 'Kain tenun ikat asli Sumba, NTT. Motif tradisional yang etnik dan mewah.',
+      imageUrl: 'https://placehold.co/600x400/A52A2A/FFFFFF?text=Tenun+Sumba',
+      price: 750000,
+      category: 'Fashion',
+      shopName: 'Nusa Tenun',
+      stock: 5,
+    ),
+    Product(
+      name: 'Keripik Tempe Sagu',
+      description: 'Keripik tempe renyah dibuat dengan sagu, gurih dan cocok untuk camilan.',
+      imageUrl: 'https://placehold.co/600x400/D2B48C/000000?text=Keripik+Tempe',
+      price: 15000,
+      category: 'Food',
+      shopName: 'Camilan Juara',
+      stock: 150,
+    ),
+    Product(
+      name: 'Guci Gerabah Kasongan',
+      description: 'Guci keramik gerabah dari Kasongan, Yogyakarta. Desain klasik untuk dekorasi rumah.',
+      imageUrl: 'https://placehold.co/600x400/CD853F/FFFFFF?text=Gerabah',
+      price: 200000,
+      category: 'Crafts',
+      shopName: 'Lestari Gerabah',
+      stock: 10,
+    ),
+  ];
+
+  // Getter publik untuk daftar produk
   List<Product> get items => _items;
 
+  // --- Fungsi CRUD Penjual ---
+
+  // (Ini adalah contoh sederhana; aplikasi nyata akan memfilter berdasarkan ID penjual)
   List<Product> getProductsByShop(String shopName) {
     return _items.where((product) => product.shopName == shopName).toList();
   }
@@ -104,3 +159,5 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+// <<< The stray text was here and has been removed.

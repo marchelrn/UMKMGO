@@ -35,8 +35,8 @@ class _ProductCatalogPageState extends State<ProductCatalogPage> {
     final cart = Provider.of<CartProvider>(context);
 
     final List<String> _pageTitles = [
-      'Discover Local Products',
-      'My Wishlist',
+      'UMKMGO',
+      'Wishlist Saya',
       'Keranjang Saya',
       'My Profile',
     ];

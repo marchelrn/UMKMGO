@@ -18,7 +18,7 @@ class WishlistPage extends StatelessWidget {
       body: wishlist.items.isEmpty
           ? Center(
         child: Text(
-          'You haven\'t saved any items yet.',
+          'Anda belum menyimpan produk.',
           style: TextStyle(fontSize: 18, color: Colors.grey.shade600),
         ),
       )

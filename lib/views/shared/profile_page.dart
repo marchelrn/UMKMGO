@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+// --- IMPORTS ---
 import 'package:umkmgo/providers/theme_provider.dart';
 import 'package:umkmgo/providers/order_provider.dart';
+import 'package:umkmgo/models/order.dart';
 import 'package:umkmgo/providers/auth_provider.dart';
+
+// Import Halaman Penjual
 import 'package:umkmgo/views/seller/seller_dashboard.dart';
 import 'package:umkmgo/views/seller/manage_products_page.dart';
 import 'package:umkmgo/views/seller/view_orders_page.dart';
+// -------------------------
+
+// --- HALAMAN PEMBELI (Didefinisikan di sini untuk kelengkapan) ---
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -29,7 +37,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void _saveProfile() {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Profile saved! Name: ${_nameController.text}')),
+        SnackBar(
+          content: Text('Profil disimpan! Nama: ${_nameController.text}'),
+        ),
       );
       Navigator.pop(context);
     }
@@ -38,7 +48,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Edit Profile'), elevation: 0.5),
+      appBar: AppBar(
+        title: const Text('Edit Profil'), // <<< DITERJEMAHKAN
+        elevation: 0.5,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -137,7 +150,9 @@ class PurchaseHistoryPage extends StatelessWidget {
     final orders = orderModel.pastOrders;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Purchase History')),
+      appBar: AppBar(
+        title: const Text('Riwayat Pembelian'),
+      ), // <<< DITERJEMAHKAN
       body: orders.isEmpty
           ? Center(
               child: Text(
@@ -223,10 +238,12 @@ class PaymentMethodsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Payment Methods')),
+      appBar: AppBar(
+        title: const Text('Metode Pembayaran'),
+      ), // <<< DITERJEMAHKAN
       body: const Center(
-        child: Text('List of saved cards/accounts goes here.'),
-      ),
+        child: Text('Daftar kartu/rekening yang tersimpan ada di sini.'),
+      ), // <<< DITERJEMAHKAN
     );
   }
 }
@@ -236,10 +253,12 @@ class NotificationSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Notification Settings')),
+      appBar: AppBar(
+        title: const Text('Pengaturan Notifikasi'),
+      ), // <<< DITERJEMAHKAN
       body: const Center(
-        child: Text('Toggles for various notification types.'),
-      ),
+        child: Text('Tombol untuk berbagai jenis notifikasi.'),
+      ), // <<< DITERJEMAHKAN
     );
   }
 }
@@ -249,8 +268,12 @@ class LanguageSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Language Settings')),
-      body: const Center(child: Text('Option to change app language.')),
+      appBar: AppBar(
+        title: const Text('Pengaturan Bahasa'),
+      ), // <<< DITERJEMAHKAN
+      body: const Center(
+        child: Text('Pilihan untuk mengubah bahasa aplikasi.'),
+      ), // <<< DITERJEMAHKAN
     );
   }
 }
@@ -320,7 +343,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  child: const Text('Log Out'),
+                  child: const Text('Keluar'), // <<< DITERJEMAHKAN
                 ),
               ),
             ),
@@ -340,8 +363,8 @@ class _ProfilePageState extends State<ProfilePage> {
     final userEmail = authProvider.currentUser?.email ?? 'No Email';
 
     final String userName = (userRole == UserRole.seller)
-        ? 'Seller Account'
-        : 'Buyer Account';
+        ? 'Akun Penjual'
+        : 'Akun Pembeli'; // <<< DITERJEMAHKAN
 
     return Column(
       children: [
@@ -407,7 +430,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 textStyle: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              child: const Text('View/Edit Profile'),
+              child: const Text('Lihat/Edit Profil'), // <<< DITERJEMAHKAN
             ),
           ),
         ),
@@ -427,7 +450,10 @@ class _ProfilePageState extends State<ProfilePage> {
         child: ElevatedButton(
           onPressed: () {
             authProvider.upgradeToSeller();
-            _showSnackbar(context, 'Account upgraded to Seller!');
+            _showSnackbar(
+              context,
+              'Akun telah ditingkatkan menjadi Penjual!',
+            ); // <<< DITERJEMAHKAN
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.primary,
@@ -436,7 +462,7 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          child: const Text('Become a Seller'),
+          child: const Text('Menjadi Penjual'), // <<< DITERJEMAHKAN
         ),
       ),
     );
@@ -444,11 +470,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   List<Widget> _buildShopManagementSection(BuildContext context) {
     return [
-      _buildSectionHeader(context, 'SHOP MANAGEMENT'),
+      _buildSectionHeader(context, 'MANAJEMEN TOKO'), // <<< DITERJEMAHKAN
       _buildListItem(
         context,
         Icons.storefront,
-        'My Shop / Dashboard',
+        'Toko / Dashboard Saya',
         () => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const SellerDashboardPage()),
@@ -457,7 +483,7 @@ class _ProfilePageState extends State<ProfilePage> {
       _buildListItem(
         context,
         Icons.inventory_2_outlined,
-        'Manage Products',
+        'Manajemen Produk',
         () => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const ManageProductsPage()),
@@ -466,7 +492,7 @@ class _ProfilePageState extends State<ProfilePage> {
       _buildListItem(
         context,
         Icons.receipt_long,
-        'View Orders',
+        'Lihat Pesanan',
         () => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ViewOrdersPage()),
@@ -477,17 +503,18 @@ class _ProfilePageState extends State<ProfilePage> {
 
   List<Widget> _buildAccountSection(BuildContext context) {
     return [
-      _buildSectionHeader(context, 'ACCOUNT'),
+      _buildSectionHeader(context, 'AKUN'), // <<< DITERJEMAHKAN
       _buildListItem(
         context,
         Icons.history,
-        'Purchase History',
+        'Riwayat Pembelian', // <<< DITERJEMAHKAN
         () => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const PurchaseHistoryPage()),
         ),
       ),
-      _buildListItem(context, Icons.credit_card, 'Payment Methods', () {
+      _buildListItem(context, Icons.credit_card, 'Metode Pembayaran', () {
+        // <<< DITERJEMAHKAN
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const PaymentMethodsPage()),
@@ -502,22 +529,23 @@ class _ProfilePageState extends State<ProfilePage> {
     ThemeProvider themeModel,
   ) {
     return [
-      _buildSectionHeader(context, 'SETTINGS'),
+      _buildSectionHeader(context, 'PENGATURAN'), // <<< DITERJEMAHKAN
       _buildToggleItem(
         context,
         Icons.dark_mode_outlined,
-        'Dark Mode',
+        'Mode Gelap', // <<< DITERJEMAHKAN
         themeModel.isDarkMode,
         primaryColor,
         (newValue) {
           themeModel.setDarkMode(newValue);
           _showSnackbar(
             context,
-            'Dark Mode: ${newValue ? 'Enabled' : 'Disabled'}',
-          );
+            'Mode Gelap: ${newValue ? 'Aktif' : 'Nonaktif'}',
+          ); // <<< DITERJEMAHKAN
         },
       ),
-      _buildListItem(context, Icons.notifications_none, 'Notifications', () {
+      _buildListItem(context, Icons.notifications_none, 'Notifikasi', () {
+        // <<< DITERJEMAHKAN
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -525,7 +553,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         );
       }),
-      _buildListItem(context, Icons.language, 'Language', () {
+      _buildListItem(context, Icons.language, 'Bahasa', () {
+        // <<< DITERJEMAHKAN
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const LanguageSettingsPage()),
@@ -536,12 +565,20 @@ class _ProfilePageState extends State<ProfilePage> {
 
   List<Widget> _buildSupportSection(BuildContext context) {
     return [
-      _buildSectionHeader(context, 'SUPPORT'),
-      _buildListItem(context, Icons.help_outline, 'Help Center', () {
-        _showSnackbar(context, 'Navigating to Help Center...');
+      _buildSectionHeader(context, 'DUKUNGAN'), // <<< DITERJEMAHKAN
+      _buildListItem(context, Icons.help_outline, 'Pusat Bantuan', () {
+        // <<< DITERJEMAHKAN
+        _showSnackbar(
+          context,
+          'Menavigasi ke Pusat Bantuan...',
+        ); // <<< DITERJEMAHKAN
       }),
-      _buildListItem(context, Icons.engineering, 'Terms of Service', () {
-        _showSnackbar(context, 'Navigating to Terms...');
+      _buildListItem(context, Icons.engineering, 'Ketentuan Layanan', () {
+        // <<< DITERJEMAHKAN
+        _showSnackbar(
+          context,
+          'Menavigasi ke Ketentuan Layanan...',
+        ); // <<< DITERJEMAHKAN
       }),
     ];
   }
